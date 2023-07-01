@@ -53,10 +53,20 @@ class instrumented_io_context : public boost::asio::io_context {
   }
 
   bool run_if_stopped(std::function<void()> callback) {
-    if (!is_running_.exchange(true)) {
+    size_t old_run_count;
+    {
+      absl::MutexLock l(&mu_);
+      old_run_count = run_count_;
+      run_count_++;
+    }
+
+    if (old_run_count == 0) {
       callback();
       boost::asio::io_context::run();
       return true;
+    } else {
+      absl::MutexLock l(&mu_);
+      run_count_--;
     }
     return false;
   }
@@ -108,5 +118,6 @@ class instrumented_io_context : public boost::asio::io_context {
   /// The event stats tracker to use to record asio handler stats to.
   std::shared_ptr<EventTracker> event_stats_;
 
-  std::atomic<bool> is_running_;
+  absl::Mutex mu_;
+  size_t run_count_ GUARDED_BY(mu_);
 };
