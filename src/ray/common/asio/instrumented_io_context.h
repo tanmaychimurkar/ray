@@ -52,6 +52,15 @@ class instrumented_io_context : public boost::asio::io_context {
     boost::asio::io_context::stop();
   }
 
+  bool run_if_stopped(std::function<void()> callback) {
+    if (!is_running_.exchange(true)) {
+      callback();
+      boost::asio::io_context::run();
+      return true;
+    }
+    return false;
+  }
+
   void run() {
     {
       absl::MutexLock l(&mu_);
