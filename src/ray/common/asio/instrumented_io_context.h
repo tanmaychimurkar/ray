@@ -117,5 +117,4 @@ class instrumented_io_context : public boost::asio::io_context {
   bool is_running_;
   /// The event stats tracker to use to record asio handler stats to.
   std::shared_ptr<EventTracker> event_stats_;
-
 };
