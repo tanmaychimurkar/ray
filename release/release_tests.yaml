@@ -2366,6 +2366,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
         - LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/ray/.mujoco/mujoco210/bin
@@ -2494,6 +2496,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2534,6 +2538,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2622,6 +2628,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2662,6 +2670,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2702,6 +2712,8 @@
   team: core
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2785,6 +2797,8 @@
   python: "3.8"
   cluster:
     byod: 
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2827,6 +2841,8 @@
   python: "3.8"
   cluster:
     byod: 
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2869,6 +2885,8 @@
   python: "3.8"
   cluster:
     byod: 
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       runtime_env:
         - RLLIB_TEST_NO_JAX_IMPORT=1
     cluster_env: app_config.yaml
@@ -2909,6 +2927,8 @@
   python: "3.8"
   cluster:
     byod:
+      pip:
+        - https://ray-ci-deps-wheels.s3.us-west-2.amazonaws.com/AutoROM.accept_rom_license-0.5.4-py3-none-any.whl
       type: gpu
     cluster_env: app_config.yaml
     cluster_compute: compute_tpl.yaml
@@ -4982,6 +5002,22 @@
         cluster_env: app_config.yaml
         cluster_compute: tpl_64_gce.yaml
 
+- name: microbenchmark_311
+  group: core-daily-test
+  team: core
+  frequency: nightly
+  working_dir: microbenchmark
+
+  python: "3.11"
+
+  cluster:
+    byod: {}
+    cluster_env: app_config.yaml
+    cluster_compute: tpl_64.yaml
+
+  run:
+    timeout: 1800
+    script: OMP_NUM_THREADS=64 RAY_ADDRESS=local python run_microbenchmark.py
 
 - name: benchmark_worker_startup
   group: core-daily-test
