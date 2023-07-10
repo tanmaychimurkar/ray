@@ -87,7 +87,7 @@ class RAY_EXPORT GcsClient : public std::enable_shared_from_this<GcsClient> {
   /// This function must be called before calling other functions.
   /// \param instrumented_io_context IO execution service.
   /// \param cluster_id Optional cluster ID to provide to the client.
-  ///
+  ///                   If not provided, will be obtained from server.
   /// \return Status
   virtual Status Connect(instrumented_io_context &io_service,
                          const ClusterID &cluster_id = ClusterID::Nil());
