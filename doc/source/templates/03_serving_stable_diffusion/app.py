@@ -55,3 +55,7 @@ class StableDiffusionV2:
 
 
 entrypoint = APIIngress.bind(StableDiffusionV2.bind())
+
+# The following block will be executed if the script is run by Python directly
+if __name__ == "__main__":
+    serve.run(entrypoint)
